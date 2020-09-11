@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% load thumbnail %}
+
+{% block title %}
+    {{ image.title }}
+{% endblock %}
+
+{% block content %}
+    <div class="image"> 
+        <a href="{{ image.user.get_absolute_url }}">
+            <div class="userofimage">
+                {% thumbnail profile.photo "50x50" crop="20%"  as im %}
+                    <div class="photoofuser">
+                        <img src="{{ im.url }}" alt="q">
+                    </div>
+                {% endthumbnail %}  
+                <p>{{ image.user.username }}</p>
+            </div>
+        </a>
+        <div class="img">
+            {% thumbnail image.image "700" as im %}
+                <img src="{{ im.url }}" alt="{{ image.title }}">
+            {% endthumbnail %}
+            
+            <div class="titleofimage">
+                {{ image.title }}
+            </div>
+
+            {% if image.description %}
+                <div class="descriptionofimage">
+                    {{ image.description|linebreaks }}
+                </div>
+            {% endif %}
+            
+            {% with total_likes=image.users_like.count users_like=image.users_like.all %}
+                <span>
+                    Лайков:
+                    <span class="count">{{ total_likes }}</span>
+                </span>
+                <div class="buttonlike">
+                    <a href="#" data-id="{{ image.id }}" data-action="{% if request.user in users_like %}un{% endif %}like" class="like">
+                        {% if request.user not in users_like %}
+                            Нравится
+                        {% else %}
+                            Не нравится
+                        {% endif %}
+                    </a>
+                </div>
+            {% endwith %}
+        </div>
+    </div>
+{% endblock %}
+
+{% block domready %}
+    $('a.like').click(function(e){
+        e.preventDefault();
+        $.post(
+            '{% url "images:like" %}',
+            {id: $(this).data('id'),action: $(this).data('action')},
+            function(data){
+                if (data['status'] == 'ok'){
+                    var previous_action = $('a.like').data('action');
+                    // Изменяем переменную действия.
+                    $('a.like').data('action', previous_action == 'like' ?'unlike' : 'like');
+                    // Изменяем текст ссылки
+                    $('a.like').text(previous_action == 'like' ? 'Не нравится' : 'Нравится');
+                    // Обновляем общее количество лайков.
+                    var previous_likes = parseInt($('span.count').text());
+                    $('span.count').text(previous_action == 'like' ? previous_likes + 1 : previous_likes - 1);
+                }
+        });
+    });
+{% endblock %}

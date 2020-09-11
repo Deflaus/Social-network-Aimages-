@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}
+	Вход
+{% endblock title %}
+{% block content %}
+	<form action="{% url 'login' %}" method="post" class="loginform">
+		<h1>Вход</h1>
+
+		{% if form.errors %}
+			<p>Ваше имя пользователя и пароль не совпадают. Пожалуйста, попробуйте еще раз</p>
+		{% else %}
+			<p>Используйте следующую форму для входа в аккаунт.</p>
+		{% endif %}
+
+		{% if next %}
+		  	{% if user.is_authenticated %}
+		    	<p>У вашей учетной записи нет доступа к этой странице. Чтобы продолжить, войдите в систему с учетной записью, у которой есть доступ.</p>
+		  	{% else %}
+		    	<p>Пожалуйста, войдите, чтобы увидеть эту страницу.</p>
+		  	{% endif %}
+		{% endif %}
+		<p>
+			Имя пользователя
+		</p>
+		{{ form.username }}
+		<p>
+			Пароль
+		</p>
+		{{ form.password }}
+		{% csrf_token %}
+		<input type="hidden" name="next" value="" />
+		<p><input type="submit" value="Вход"></p>
+	</form>
+	<p><a href="{% url 'password_reset' %}">Восстановить пароль</a></p>
+	<p><a href="{% url 'register' %}">Зарегистрироваться</a></p>
+{% endblock content %}

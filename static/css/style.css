@@ -1,0 +1,249 @@
+/* Тело сайта */
+
+.content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 60px 0 0;
+}
+
+h1, p, a, span{
+    font-family: Arial, sans-serif;
+}
+
+p, a, span {
+    font-size: 18px;
+    line-height: 22px;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+
+a:hover { color: #dadfdf; }
+
+
+body {
+    background-color: #f2f3f4;
+}
+
+.content input[type=text], input[type=email], input[type=password] {
+    font-family: Arial, sans-serif;
+    font-size: 18px;
+    line-height: 22px;
+    width: 650px;
+}
+
+.content input[type=file] {
+    font-family: Arial, sans-serif;
+    background: white;
+    border: 1px solid #d3d3d3;
+    border-radius: 3px;
+    color: black;
+    font-size: 18px;
+    line-height: 22px;
+
+    margin: 5px;
+    padding: 10px;
+}
+
+.content input[type=submit] {
+    background: #b5c1c0;
+    border-radius: 3px;
+    color: white;
+    font-size: 18px;
+    line-height: 22px;
+    outline: none;
+
+    padding: 10px;
+    margin: 20px 0;
+}
+
+input[type=submit]:hover { background: #dadfdf; }
+input[type=submit]:active { background: #b5c1c0; }
+
+/* Шапка */
+
+.header {
+    background-color: white;
+
+    position: fixed;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+
+    top: 0;
+    left: 0;
+    right: 0;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    border-bottom-color: #d3d3d3;
+}
+
+.header li{
+    display: inline;
+}
+
+.header a {
+    margin: 0px 20px;
+    font-size: 20px;
+    line-height: 19px;
+}
+
+/* Изображения */
+
+.content .image {
+    border: 1px solid #b5c1c0;
+    background-color: white;
+    padding: 20px 0px;
+    width: 700px;
+    margin: 20px 0px;
+}
+
+.content .image .userofimage {
+    display: flex;
+    flex-direction: row;
+    padding: 10px;
+}
+
+.content .image .userofimage img {
+    border-radius: 100%;
+    padding: 0 10px;
+}
+
+.content .image .img {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.content .image .img .buttonlike {
+    background: #b5c1c0;
+    border-radius: 3px;
+    color: white;
+    font-size: 18px;
+    line-height: 22px;
+    outline: none;
+
+    padding: 10px;
+    margin: 20px 0;
+}
+
+.content .image .titleofimage {
+    font-family: Arial, sans-serif;
+    font-size: 18px;
+    padding: 10px 0 0 0;
+}
+
+
+/*Добавить изображения */
+
+.content .formimage {
+    padding: 10px;
+}
+
+.content .formimage div {
+    text-align: center;
+    width: 700px;
+    padding: 10px;
+    margin: 10px;
+}
+
+.content .formimage .field {
+    border: 1px solid #b5c1c0;
+    background-color: white;
+}
+
+.content .formimage textarea {
+    font-family: Arial, sans-serif;
+    font-size: 18px;
+    line-height: 22px;
+    width: 650px;
+}
+
+.content .formimage img {
+    max-width: 650px;
+    padding: 10px;
+}
+
+
+/*Пользователи*/
+
+.content .photoofuser img {
+    border-radius: 100%;
+    padding: 0 10px;
+    margin: 0 0 10px 0; 
+}
+
+.content .users {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.content .user {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid #b5c1c0;
+    background-color: white;
+    padding: 20px 0px;
+    width: 200px;
+    margin: 20px;
+}
+
+/*Профиль*/
+
+.content .profile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.content .profile .buttonchangeprofile {
+    background: #b5c1c0;
+    border-radius: 3px;
+    color: white;
+    font-size: 18px;
+    line-height: 22px;
+    outline: none;
+
+    padding: 10px;
+    margin: 20px 0;
+}
+
+.content .profile .imagesofprofile {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.content .profile .imageofprofile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #b5c1c0;
+    background-color: white;
+    padding: 20px;
+    width: 300px;
+    height: 300px;
+    margin: 20px;
+}
+
+.content .profile .imageofprofile .titleofimage {
+    font-family: Arial, sans-serif;
+    font-size: 18px;
+    padding: 10px 0 0 0;
+}
+
+.content form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

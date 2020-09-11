@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% load thumbnail %}
+{% block title %}
+	Изображения
+{% endblock title %}
+{% block content %}
+	<h1>Люди</h1>
+	<div class="users">
+		{% for user in users %}
+			{% if user.username != "admin" %}
+				<div class="user">
+					<a href="{{ user.get_absolute_url }}">
+						{% thumbnail user.profile.photo "180x180" crop="60%" as im %}
+							<div class="photoofuser">
+								<img src="{{ im.url }}" alt="">
+							</div>
+						{% endthumbnail %}
+					</a>
+					<div class="info">
+						<a href="{{ user.get_absolute_url }}" class="title">
+							{{ user.username }}
+						</a>
+					</div>
+				</div>
+			{% endif %}
+		{% endfor %}
+	</div>
+{% endblock content %}

@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+{% load thumbnail %}
+{% block title %}
+	{{ user.username }}
+{% endblock title %}
+{% block content %}
+	<div class="profile">
+		<h1>{{ user.username }}</h1>
+		{% thumbnail user.profile.photo "180x180" crop="60%" as im %}
+			<div class="photoofuser">
+				<img src="{{ im.url }}" alt="">
+			</div>
+		{% endthumbnail %}
+
+		{% if user.first_name and user.last_name %}
+			<p>{{ user.first_name }} {{ user.last_name }}</p>
+		{% else %}
+			{% if user.first_name %}
+				<p>{{ user.first_name }}</p>
+			{% endif %}
+
+			{% if user.last_name %}
+				<p>{{ user.last_name }}</p>
+			{% endif %}
+		{% endif %}
+
+		{% if user.email %}
+			<p>Почта: {{ user.email }}</p>
+		{% endif %}
+
+		{% if profile.date_of_birth %}
+			<p>Дата рождения: {{ profile.date_of_birth }}</p>
+		{% endif %}
+
+		{% if user == request.user %}
+			<div class="buttonchangeprofile">
+				<a href="{% url "edit" %}">Изменить профиль</a>
+			</div>
+		{% endif %}
+
+		{% with total_followers=user.followers.count %}
+		{% if total_followers != 0 %}
+			<a href="{% url "followers_user" username=user.username %}">
+				<span class="count">
+					<span class="total">Подписчиков: {{ total_followers }}</span>
+				</span>
+			</a>
+		{% else %}
+			<span class="count">
+				<span class="total">Подписчиков: {{ total_followers }}</span>
+			</span>
+		{% endif %}
+			{% if user != request.user %}
+				<a href="#" data-id="{{ user.id }}"
+					data-action="{% if request.user in user.followers.all %}un{% endif %}follow"
+					class="follow button">
+					{% if request.user not in user.followers.all %}
+						Подписаться
+					{% else %}
+						Отписаться
+					{% endif %}
+				</a>
+			{% endif %}
+		{% endwith %}
+		<div class="imagesofprofile">
+			{% for image in images %}
+				<a href="{{ image.get_absolute_url }}">
+					<div class="imageofprofile">
+						{% thumbnail image.image "300" as im %}
+							<img src="{{ im.url }}" alt="">
+						{% endthumbnail %}
+						<div class="titleofimage">
+							{{ image.title }}
+						</div>
+					</div>
+				</a>
+			{% endfor %}
+		</div>
+	</div>
+	
+{% endblock content %}
+{% block domready %}
+	$('a.follow').click(function(e){
+    e.preventDefault();
+    $.post('{% url "user_follow" %}',
+      {
+        id: $(this).data('id'),
+        action: $(this).data('action')
+      },
+      function(data){
+        if (data['status'] == 'ok') {
+          var previous_action = $('a.follow').data('action');
+
+          // toggle data-action
+          $('a.follow').data('action',
+            previous_action == 'follow' ? 'unfollow' : 'follow');
+          // toggle link text
+          $('a.follow').text(
+            previous_action == 'follow' ? 'Отписаться' : 'Подписаться');
+
+          // update total followers
+          var previous_followers = parseInt($('span.count .total').text());
+          console.log($('span.count .total').text());
+          $('span.count .total').text(previous_action == 'follow' ? previous_followers + 1 : previous_followers - 1);
+        }
+      }
+    );
+  });	
+{% endblock domready %}

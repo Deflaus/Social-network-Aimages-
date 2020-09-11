@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% load thumbnail %}
+{% block title %}Изменение профиля{% endblock %}
+{% block content %}
+		<form action="." method="post" enctype="multipart/form-data" class="profileform">
+			<h1>Изменение профиля</h1>
+			<p>Вы можете изменить профиль, используя следующую форму:</p>
+			<p>
+				Имя
+			</p>
+			{{ user_form.first_name }}
+			<p>
+				Фамилия
+			</p>
+			{{ user_form.last_name }}
+			<p>
+				Адрес электронной почты
+			</p>
+			{{ user_form.email }}
+			<p>
+				Дата рождения
+			</p>
+			<br>
+			{{ profile_form.date_of_birth }}
+			<p>
+				Фото
+			</p>
+			<p class="profileformphoto">
+				{{ profile_form.photo }}
+			</p>
+
+			<img id='image' width=500 src="{{ user.profile.photo.url }}" alt='/' />
+
+			{% csrf_token %}
+			<p><input type="submit" value="Сохранить изменения"></p>
+		</form>
+{% endblock %}
+{% block domready %}
+		function readURL(input) {
+		    if (input.files && input.files[0]) {
+		        var reader = new FileReader();
+		        reader.onload = function (e) {
+			        $('#image').attr('src', e.target.result);
+			    };
+			    reader.readAsDataURL(input.files[0]);
+			}
+		}
+
+		$("#id_photo").change(function(){
+	        readURL(this);
+	    });
+{% endblock %}

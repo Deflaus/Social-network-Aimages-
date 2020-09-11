@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}
+	Создание профиля
+{% endblock title %}
+{% block content %}
+	<form action="." method="post">
+		<h1>Создание профиля</h1>
+		<p>
+			Имя пользователя
+		</p>
+		{{ user_form.username }}
+		<p>
+			Имя
+		</p>
+		{{ user_form.first_name }}
+		<p>
+			Адрес электронной почты
+		</p>
+		{{ user_form.email }}
+		<p>
+			Пароль
+		</p>
+		{{ user_form.password }}
+
+		<p>
+			Повторите пароль
+		</p>
+		{{ user_form.password2 }}
+
+		{% csrf_token %}
+		<p>
+			<input type="submit" value="Создать профиль">
+		</p>	
+	</form>
+{% endblock content %}

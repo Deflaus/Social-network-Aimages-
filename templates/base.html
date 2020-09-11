@@ -1,0 +1,81 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>{% block title %}{% endblock %}</title>
+        <link href="{% static 'css/style.css' %}" rel="stylesheet">
+    </head>
+    <body>
+        <div class="header">
+            {% if request.user.is_authenticated %}
+                <ul class="menu">
+                    <li>
+                        <a href="{% url "images:feed" %}">
+                            <img width=43 src="{% static 'images/feed.png' %}" alt="">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url "list_people" %}">
+                            <img width=33 src="{% static 'images/people.png' %}" alt="">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url "images:list_images" %}">
+                            <img width=40 src="{% static 'images/images.png' %}" alt="">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url "images:addingimage" %}">
+                            <img width=40 src="{% static 'images/addimage.png' %}" alt="">
+                        </a>
+                    </li>
+                </ul>
+            {% endif %}
+            <ul class="user">
+                {% if request.user.is_authenticated %}
+                    <li>
+                        <a href="{% url "profile_view" username=request.user.username %}">
+                            {{ request.user.username }}    
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url "logout" %}">
+                            Выход
+                        </a>
+                    </li>
+                {% else %}
+                    <li>
+                        <a href="{% url "login" %}">
+                            Вход
+                        </a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+        <div class="content">
+          {% block content %}
+          {% endblock %}
+        </div>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+        <script>
+            var csrftoken = Cookies.get('csrftoken');
+            function csrfSafeMethod(method) {
+                // these HTTP methods do not require CSRF protection
+                return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+            }
+            $.ajaxSetup({
+                beforeSend: function(xhr, settings) {
+                    if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                        xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                    }
+                }
+            });
+            $(document).ready(function(){
+                {% block domready %}
+                {% endblock %}
+            });
+        </script>
+    </body>
+</html>

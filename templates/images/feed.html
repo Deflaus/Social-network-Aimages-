@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% load thumbnail %}
+{% block title %}
+	Лента
+{% endblock title %}
+{% block content %}
+	<h1>Лента</h1>
+	{% if images_follower %}
+		{% for images_follower in images %}
+			{% for image in images_follower %}
+				<div class="image">
+					<a href="{{ image.user.get_absolute_url }}">
+						<div class="userofimage">
+							{% for profile in profiles %}
+								{% if profile.user == image.user %}
+									{% thumbnail profile.photo "50x50" crop="20%"  as im %}
+										<div class="photoofuser">
+									     	<img src="{{ im.url }}" alt="q">
+										</div>
+									{% endthumbnail %}  
+								{% endif %}
+							{% endfor %}
+							<p>{{ image.user.username }}</p>
+						</div>
+					</a>
+					<a href="{{ image.get_absolute_url }}">
+						<div class="img">
+							{% thumbnail image.image "700" as im %}
+					     		<img src="{{ im.url }}" alt="{{ image.title }}">
+							{% endthumbnail %}
+							<div class="titleofimage">
+								{{ image.title }}
+							</div>
+						</div>
+					</a>
+				</div>
+			{% endfor %}
+		{% endfor %}
+	{% else %}
+		<p>Пользователи, на которых вы подписались, ничего еще не выложили :)</p>
+	{% endif %}
+	
+{% endblock content %}
