@@ -236,6 +236,10 @@ input[type=submit]:active { background: #b5c1c0; }
     margin: 20px;
 }
 
+.content .profile .imageofprofile img {
+    max-height: 300px;
+}
+
 .content .profile .imageofprofile .titleofimage {
     font-family: Arial, sans-serif;
     font-size: 18px;
