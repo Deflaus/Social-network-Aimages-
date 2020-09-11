@@ -1,0 +1,1 @@
+web: gunicorn mysocnet_photos.wsgi --log-file -
