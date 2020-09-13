@@ -61,7 +61,7 @@
         {% for image in images %}
         <a href="{{ image.get_absolute_url }}">
             <div class="imageofprofile">
-                <img src="{{ im.url }}" alt="">
+                <img src="{{ image.image.url }}" alt="">
                 <div class="titleofimage">
                     {{ image.title }}
                 </div>

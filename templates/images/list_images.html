@@ -11,7 +11,7 @@
 					{% for profile in profiles %}
 						{% if profile.user == image.user %}
 							<div class="photoofuser">
-							     <img width=50px height=50px src="{{ im.url }}" alt="q">
+							     <img width=50px height=50px src="{{ profile.photo.url }}" alt="q">
 							</div>
 						{% endif %}
 					{% endfor %}
@@ -20,7 +20,7 @@
 			</a>
 			<a href="{{ image.get_absolute_url }}">
 				<div class="img">
-			 	  	<img width=700px src="{{ im.url }}" alt="{{ image.title }}">
+			 	  	<img width=700px src="{{ image.image.url }}" alt="{{ image.title }}">
 					<div class="titleofimage">
 						{{ image.title }}
 					</div>
