@@ -1,5 +1,4 @@
 {% extends "base.html" %}
-{% load thumbnail %}
 {% block title %}
 	Лента
 {% endblock title %}
@@ -13,11 +12,9 @@
 						<div class="userofimage">
 							{% for profile in profiles %}
 								{% if profile.user == image.user %}
-									{% thumbnail profile.photo "50x50" crop="20%"  as im %}
-										<div class="photoofuser">
-									     	<img src="{{ im.url }}" alt="q">
-										</div>
-									{% endthumbnail %}  
+									<div class="photoofuser">
+									     <img width=50px height=50px src="{{ im.url }}" alt="q">
+									</div>
 								{% endif %}
 							{% endfor %}
 							<p>{{ image.user.username }}</p>
@@ -25,9 +22,7 @@
 					</a>
 					<a href="{{ image.get_absolute_url }}">
 						<div class="img">
-							{% thumbnail image.image "700" as im %}
-					     		<img src="{{ im.url }}" alt="{{ image.title }}">
-							{% endthumbnail %}
+					     	<img width=700px src="{{ im.url }}" alt="{{ image.title }}">
 							<div class="titleofimage">
 								{{ image.title }}
 							</div>

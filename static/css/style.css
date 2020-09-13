@@ -237,6 +237,7 @@ input[type=submit]:active { background: #b5c1c0; }
 }
 
 .content .profile .imageofprofile img {
+    max-width: 300px;
     max-height: 300px;
 }
 

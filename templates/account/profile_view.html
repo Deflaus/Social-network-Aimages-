@@ -1,5 +1,4 @@
 {% extends "base.html" %}
-{% load thumbnail %}
 {% block title %}
     {{ user.username }}
 {% endblock title %}
@@ -62,8 +61,7 @@
         {% for image in images %}
         <a href="{{ image.get_absolute_url }}">
             <div class="imageofprofile">
-                {% thumbnail image.image "300" as im %}
-                <img src="{{ im.url }}" alt=""> {% endthumbnail %}
+                <img src="{{ im.url }}" alt="">
                 <div class="titleofimage">
                     {{ image.title }}
                 </div>

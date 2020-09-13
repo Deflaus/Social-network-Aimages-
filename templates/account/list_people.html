@@ -1,5 +1,4 @@
 {% extends "base.html" %}
-{% load thumbnail %}
 {% block title %}
 	Изображения
 {% endblock title %}
@@ -10,11 +9,9 @@
 			{% if user.username != "admin" %}
 				<div class="user">
 					<a href="{{ user.get_absolute_url }}">
-						{% thumbnail user.profile.photo "180x180" crop="60%" as im %}
-							<div class="photoofuser">
-								<img src="{{ im.url }}" alt="">
-							</div>
-						{% endthumbnail %}
+						<div class="photoofuser">
+							<img width=180px height=180px src="{{ im.url }}" alt="">
+						</div>
 					</a>
 					<div class="info">
 						<a href="{{ user.get_absolute_url }}" class="title">
