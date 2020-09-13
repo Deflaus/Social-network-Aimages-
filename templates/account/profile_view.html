@@ -1,4 +1,9 @@
-{% extends "base.html" %} {% load thumbnail %} {% block title %} {{ user.username }} {% endblock title %} {% block content %}
+{% extends "base.html" %}
+{% load thumbnail %}
+{% block title %}
+    {{ user.username }}
+{% endblock title %}
+{% block content %}
 <div class="profile">
     <h1>{{ user.username }}</h1>
     <div class="photoofuser">
@@ -52,7 +57,21 @@
     </div>
 </div>
 
-{% endblock content %} {% block domready %} $('a.follow').click(function(e){ e.preventDefault(); $.post('{% url "user_follow" %}', { id: $(this).data('id'), action: $(this).data('action') }, function(data){ if (data['status'] == 'ok') { var previous_action
-= $('a.follow').data('action'); // toggle data-action $('a.follow').data('action', previous_action == 'follow' ? 'unfollow' : 'follow'); // toggle link text $('a.follow').text( previous_action == 'follow' ? 'Отписаться' : 'Подписаться'); // update total
-followers var previous_followers = parseInt($('span.count .total').text()); console.log($('span.count .total').text()); $('span.count .total').text(previous_action == 'follow' ? previous_followers + 1 : previous_followers - 1); } } ); }); {% endblock
-domready %}
+{% endblock content %}
+{% block domready %}
+    $('a.follow').click(function(e){ 
+        e.preventDefault(); $.post('{% url "user_follow" %}',
+        { id: $(this).data('id'),
+        action: $(this).data('action') },
+        function(data){ if (data['status'] == 'ok'){
+            var previous_action = $('a.follow').data('action');
+            // toggle data-action
+            $('a.follow').data('action', previous_action == 'follow' ? 'unfollow' : 'follow');
+            // toggle link text
+            $('a.follow').text( previous_action == 'follow' ? 'Отписаться' : 'Подписаться');
+            // update total
+            followers var previous_followers = parseInt($('span.count .total').text());
+            console.log($('span.count .total').text());
+            $('span.count .total').text(previous_action == 'follow' ? previous_followers + 1 : previous_followers - 1); } } );
+    });
+{% endblockdomready %}
