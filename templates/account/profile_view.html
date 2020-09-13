@@ -93,7 +93,7 @@
 
           // update total followers
           var previous_followers = parseInt($('span.count .total').text());
-          console.log($('span.count .total').text());
+          console.log(previous_followers.text());
           $('span.count .total').text(previous_action == 'follow' ? previous_followers + 1 : previous_followers - 1);
         }
       }
